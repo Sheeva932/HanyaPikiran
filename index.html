@@ -155,6 +155,7 @@ function initQuestions(){
 initQuestions();
 
 questionSelect.onchange = ()=>{
+  isRandomMode = false; // 🔑 MATIKAN MODE ACAK
   questionEl.textContent = questions[questionSelect.value] || "Pilih atau acak pertanyaan…";
 };
 
