@@ -1,291 +1,186 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Museum Pikiran Acak</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Georgia', serif;
-      background: linear-gradient(120deg, #f7f3ef, #ece6df);
-      color: #2e2e2e;
-      min-height: 100vh;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Museum Pikiran Acak</title>
 
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 40px 20px;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: linear-gradient(120deg, #f7f3ef, #ece6df);
+  color: #2e2e2e;
+}
 
-    h1 {
-      text-align: center;
-      font-weight: normal;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 40px 20px;
+}
 
-    .subtitle {
-      text-align: center;
-      font-size: 14px;
-      opacity: 0.7;
-      margin-bottom: 30px;
-    }
+.card {
+  background: rgba(255,255,255,0.9);
+  padding: 25px;
+  border-radius: 16px;
+  margin-top: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
 
-    .card {
-      background: rgba(255,255,255,0.9);
-      padding: 25px;
-      border-radius: 16px;
-      margin-top: 25px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
+.question {
+  font-style: italic;
+  margin: 15px 0;
+  padding: 12px;
+  background: rgba(0,0,0,0.03);
+  border-radius: 8px;
+}
 
-    .question-selector {
-      margin-bottom: 20px;
-    }
+textarea, select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
 
-    .question-selector label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      font-size: 14px;
-    }
+button {
+  margin-top: 10px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 20px;
+  background: #2e2e2e;
+  color: white;
+  cursor: pointer;
+}
 
-    select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-family: inherit;
-      font-size: 15px;
-      background: white;
-      cursor: pointer;
-    }
+button.secondary {
+  background: #777;
+}
 
-    .question {
-      font-size: 18px;
-      margin: 20px 0 15px 0;
-      font-style: italic;
-      color: #444;
-      padding: 15px;
-      background: rgba(0,0,0,0.02);
-      border-radius: 8px;
-    }
+.thought {
+  border-left: 3px solid #aaa;
+  padding-left: 12px;
+  margin-top: 15px;
+}
 
-    textarea {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      resize: vertical;
-      font-family: inherit;
-      font-size: 15px;
-      box-sizing: border-box;
-    }
+.thought-question {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+}
 
-    button {
-      margin-top: 15px;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 20px;
-      background: #2e2e2e;
-      color: white;
-      cursor: pointer;
-      font-size: 15px;
-      transition: all 0.3s;
-    }
-
-    button:hover {
-      background: #1a1a1a;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .thought {
-      font-size: 15px;
-      border-left: 3px solid #aaa;
-      padding-left: 12px;
-      margin-top: 15px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      line-height: 1.6;
-    }
-
-    .thought-question {
-      font-size: 13px;
-      color: #666;
-      font-style: italic;
-      margin-bottom: 5px;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 30px;
-      color: #999;
-      font-style: italic;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 12px;
-      opacity: 0.6;
-    }
-
-    .success-message {
-      background: #d4edda;
-      color: #155724;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 15px;
-      display: none;
-    }
-  </style>
+.delete-btn {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 5px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-  <h1>🧠 Museum Pikiran Acak</h1>
-  <div class="subtitle">Ruang untuk pikiran yang tidak perlu dimengerti, hanya perlu ditaruh.</div>
+<h1>🧠 Museum Pikiran Acak</h1>
+<p style="text-align:center; opacity:.7">
+Ruang untuk pikiran yang tak perlu diselesaikan.
+</p>
 
-  <div class="card">
-    <div class="question-selector">
-      <label>Pilih Pertanyaan:</label>
-      <select id="questionSelect" onchange="updateQuestion()">
-        <option value="">-- Pilih pertanyaan yang kamu mau jawab --</option>
-      </select>
-    </div>
+<div class="card">
+<select id="questionSelect"></select>
 
-    <div class="question" id="question">Pilih pertanyaan di atas untuk mulai...</div>
-    
-    <textarea id="answer" rows="5" placeholder="Tulis pikiranmu di sini..."></textarea>
-    <button onclick="saveThought()">Simpan Pikiran</button>
-    <div class="success-message" id="successMsg">✓ Pikiranmu telah disimpan</div>
-  </div>
+<div class="question" id="question">Pilih atau acak pertanyaan…</div>
 
-  <div class="card">
-    <h3>Pikiran yang Pernah Dititipkan</h3>
-    <div id="thoughts">
-      <div class="empty-state">Belum ada pikiran yang dititipkan. Jadilah yang pertama.</div>
-    </div>
-  </div>
+<textarea id="answer" rows="4" placeholder="Titipkan pikiranmu…"></textarea>
 
-  <footer>
-    Tidak semua pikiran ingin dimengerti. Beberapa hanya ingin ditaruh.
-  </footer>
+<button onclick="saveThought()">Simpan Pikiran</button>
+<button class="secondary" onclick="randomQuestion()">🎲 Pikiran Acak</button>
+</div>
+
+<div class="card">
+<h3>Pikiran yang Pernah Dititipkan</h3>
+<div id="thoughts"></div>
+</div>
 </div>
 
 <script>
-  const questions = [
-    "Hal kecil apa yang diam-diam bikin kamu sedih?",
-    "Kapan terakhir kali kamu pura-pura kuat?",
-    "Apa yang ingin kamu tinggalkan di tahun ini?",
-    "Kalau tidak takut dihakimi, apa yang ingin kamu katakan?",
-    "Siapa versi dirimu yang paling kamu rindukan?",
-    "Hal apa yang sering kamu pikirkan sebelum tidur?",
-    "Apa yang tidak pernah kamu ceritakan ke siapa pun?",
-    "Apa arti pulang bagimu?",
-    "Siapa yang ingin kamu maafkan tapi belum sanggup?",
-    "Apa yang ingin kamu lindungi dalam hidupmu?",
-    "Kalau hidup bukan lomba, kamu ingin jalan seberapa pelan?",
-    "Apa yang membuatmu tetap bertahan sejauh ini?",
-    "Apa yang kamu harap orang lain pahami tentangmu?",
-    "Hal apa yang membuatmu merasa cukup?",
-    "Apa versi bahagia menurutmu?",
-    "Kalimat apa yang ingin kamu dengar hari ini?",
-    "Apa yang sering kamu pendam tapi ingin dilepaskan?",
-    "Apa yang ingin kamu katakan ke dirimu 5 tahun lalu?",
-    "Siapa yang paling sering kamu rindukan diam-diam?",
-    "Apa yang sedang kamu perjuangkan tanpa sorak?"
-  ];
+const questions = [
+"Hal kecil apa yang diam-diam bikin kamu sedih?",
+"Kapan terakhir kali kamu pura-pura kuat?",
+"Apa yang ingin kamu lepaskan?",
+"Apa arti pulang bagimu?",
+"Apa yang kamu simpan terlalu lama?"
+];
 
-  const questionEl = document.getElementById("question");
-  const questionSelect = document.getElementById("questionSelect");
-  const thoughtsEl = document.getElementById("thoughts");
-  const answerEl = document.getElementById("answer");
-  const successMsg = document.getElementById("successMsg");
+const questionSelect = document.getElementById("questionSelect");
+const questionEl = document.getElementById("question");
+const answerEl = document.getElementById("answer");
+const thoughtsEl = document.getElementById("thoughts");
 
-  let thoughts = [];
+let thoughts = JSON.parse(localStorage.getItem("museumThoughts")) || [];
 
-  // Populate question dropdown
-  function initQuestions() {
-    questions.forEach((q, index) => {
-      const option = document.createElement("option");
-      option.value = index;
-      option.textContent = q;
-      questionSelect.appendChild(option);
-    });
+// init dropdown
+function initQuestions(){
+  questionSelect.innerHTML = `<option value="">-- Pilih pertanyaan --</option>`;
+  questions.forEach((q,i)=>{
+    questionSelect.innerHTML += `<option value="${i}">${q}</option>`;
+  });
+}
+initQuestions();
+
+questionSelect.onchange = ()=>{
+  questionEl.textContent = questions[questionSelect.value] || "Pilih atau acak pertanyaan…";
+};
+
+function randomQuestion(){
+  const i = Math.floor(Math.random()*questions.length);
+  questionSelect.value = i;
+  questionEl.textContent = questions[i];
+}
+
+function saveThought(){
+  if(!answerEl.value.trim()) return alert("Pikirannya masih kosong 🤍");
+
+  const thought = {
+    id: Date.now(),
+    question: questionEl.textContent,
+    answer: answerEl.value,
+  };
+
+  thoughts.unshift(thought);
+  localStorage.setItem("museumThoughts", JSON.stringify(thoughts));
+
+  answerEl.value = "";
+  displayThoughts();
+}
+
+function deleteThought(id){
+  thoughts = thoughts.filter(t => t.id !== id);
+  localStorage.setItem("museumThoughts", JSON.stringify(thoughts));
+  displayThoughts();
+}
+
+function displayThoughts(){
+  thoughtsEl.innerHTML = "";
+  if(!thoughts.length){
+    thoughtsEl.innerHTML = "<i>Belum ada pikiran.</i>";
+    return;
   }
 
-  function updateQuestion() {
-    const selectedIndex = questionSelect.value;
-    if (selectedIndex !== "") {
-      questionEl.textContent = questions[selectedIndex];
-      answerEl.focus();
-    } else {
-      questionEl.textContent = "Pilih pertanyaan di atas untuk mulai...";
-    }
-  }
-
-  function saveThought() {
-    const answer = answerEl.value.trim();
-    const selectedIndex = questionSelect.value;
-    
-    if (!answer) {
-      alert("Tulis pikiranmu dulu ya 🤍");
-      return;
-    }
-    
-    if (selectedIndex === "") {
-      alert("Pilih pertanyaan dulu ya!");
-      return;
-    }
-
-    const thought = {
-      question: questions[selectedIndex],
-      answer: answer,
-      date: new Date().toLocaleString('id-ID')
-    };
-
-    thoughts.unshift(thought);
-    
-    // Clear form
-    answerEl.value = "";
-    questionSelect.value = "";
-    questionEl.textContent = "Pilih pertanyaan di atas untuk mulai...";
-    
-    // Show success message
-    successMsg.style.display = "block";
-    setTimeout(() => {
-      successMsg.style.display = "none";
-    }, 3000);
-    
-    displayThoughts();
-  }
-
-  function displayThoughts() {
-    thoughtsEl.innerHTML = "";
-    
-    if (thoughts.length === 0) {
-      thoughtsEl.innerHTML = '<div class="empty-state">Belum ada pikiran yang dititipkan. Jadilah yang pertama.</div>';
-      return;
-    }
-    
-    thoughts.slice(0, 10).forEach(t => {
-      const div = document.createElement("div");
-      div.className = "thought";
-      div.innerHTML = `
+  thoughts.forEach(t=>{
+    thoughtsEl.innerHTML += `
+      <div class="thought">
         <div class="thought-question">"${t.question}"</div>
         <div>${t.answer}</div>
-      `;
-      thoughtsEl.appendChild(div);
-    });
-  }
+        <button class="delete-btn" onclick="deleteThought(${t.id})">🗑 hapus</button>
+      </div>
+    `;
+  });
+}
 
-  // Initialize
-  initQuestions();
-  displayThoughts();
+displayThoughts();
 </script>
 
 </body>
