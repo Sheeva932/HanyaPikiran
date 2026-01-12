@@ -85,10 +85,31 @@ button.secondary {
   font-size: 13px;
   margin-top: 5px;
 }
+
+.rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 20px,
+    rgba(0,0,0,0.05) 21px,
+    rgba(0,0,0,0.05) 22px
+  );
+  animation: rain 0.5s linear infinite;
+  z-index: 1;
+}
+
+@keyframes rain {
+  from { background-position: 0 0; }
+  to   { background-position: 0 40px; }
+}
+
 </style>
 </head>
 
 <body>
+<div class="rain"></div>
 
 <div class="container">
 <h1>🧠 Museum Pikiran Acak</h1>
