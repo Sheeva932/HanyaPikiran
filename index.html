@@ -90,13 +90,13 @@ button.secondary {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: repeating-linear-gradient(
-    120deg,
-    rgba(0,0,0,0.08) 0px,
-    rgba(0,0,0,0.08) 1px,
-    transparent 1px,
-    transparent 12px
-  );
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
 
   animation: rain 0.6s linear infinite;
   z-index: 1;
