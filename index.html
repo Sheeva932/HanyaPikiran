@@ -152,13 +152,6 @@ questionSelect.onchange = ()=>{
   questionEl.textContent = questions[questionSelect.value] || "Pilih atau acak pertanyaan…";
 };
 
-let questionText;
-    if (selectedIndex === "") {
-      questionText = null; // Pikiran acak tanpa pertanyaan
-    } else {
-      questionText = questions[selectedIndex];
-    }
-
 function saveThought(){
   if(!answerEl.value.trim()) return alert("Pikirannya masih kosong 🤍");
 
