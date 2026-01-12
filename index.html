@@ -135,6 +135,7 @@ const answerEl = document.getElementById("answer");
 const thoughtsEl = document.getElementById("thoughts");
 
 let thoughts = JSON.parse(localStorage.getItem("museumThoughts")) || [];
+let isRandomMode = false;
 
 // init dropdown
 function initQuestions(){
@@ -150,19 +151,20 @@ questionSelect.onchange = ()=>{
 };
 
 function randomQuestion(){
-  const i = Math.floor(Math.random()*questions.length);
-  questionSelect.value = i;
-  questionEl.textContent = questions[i];
+  isRandomMode = true;
+  questionSelect.value = "";
+  questionEl.textContent = "Pikiran Acak";
+  answerEl.focus();
 }
 
 function saveThought(){
   if(!answerEl.value.trim()) return alert("Pikirannya masih kosong 🤍");
 
   const thought = {
-    id: Date.now(),
-    question: questionEl.textContent,
-    answer: answerEl.value,
-  };
+  id: Date.now(),
+  question: isRandomMode ? "Pikiran Acak" : questionEl.textContent,
+  answer: answerEl.value.trim(),
+};
 
   thoughts.unshift(thought);
   localStorage.setItem("museumThoughts", JSON.stringify(thoughts));
@@ -196,6 +198,10 @@ function displayThoughts(){
 }
 
 displayThoughts();
+
+isRandomMode = false;
+questionEl.textContent = "Pilih atau acak pertanyaan…";
+
 </script>
 
 </body>
